@@ -1,0 +1,5 @@
+Programa inicia > Puxa o preload selecionado > Formatar dados para utilização > 
+Função para a procura dos arquivos na pasta selecionada > Pra cada arquivo selecionado
+enviar para a pasta final selecionada > quando finalizar, mostrar um link para as 
+pastas finais, para que o usuário clique > Dar opções pra voltar pro menu principal ou fechar
+o Programa

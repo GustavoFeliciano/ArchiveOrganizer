@@ -1,0 +1,31 @@
+Option menu:
+
+1 Mudar pasta base > acessar preload temporário > Mudar atributo BaseFolder do arquivo JsonTemp
+2 Mudar pasta alvo > acessar preload temporário > Mudar atributo FinalFolder do arquivo JsonTemp
+3 Mostrar configurações atuais > acessar preload temporário > Formatar saída no frontEnd
+4 Mudar configuração de tipo de arquivo > Input do usuário recebendo o tipo de arquivo com a formatação
+especificada exemplo:(".py") > Verificar se o tipo de arquivo já está no tempDb.json > 
+    Se não:
+    perguntar se quer inserir arquivo pra organização 
+        Se não: 
+        Voltar pro menu de configuração
+
+        Se sim:
+        acessar arquivo tempDB.json > Adicionar outro Dict dentro do arquivo com o tipo do arquivo >
+        Receber inputs necessários para compor o Dict de configuração > Voltar para o menu
+
+    se sim:
+    perguntar se quer modificar o arquivo de configuração
+        Se não:
+        Voltar pro menu de configuração
+
+        Se sim:
+        acessar arquivo tempDB.json > Receber o input para cada parâmetro dentro do dict >
+        Formatar para o frontEnd > Receber input para cada escolha possível de mudança > 
+        Após modificações sempre deixar disponível a escolha de saída
+
+5 Salvar configuração atual > acessar preload temporário > Passar como parâmetro para a função
+de salvamento de preload > Salvar no arquivo saveDB.json
+6 Carregar preload > acessar arquivo saveDB.json > puxar todos os preloads já salvos > 
+Formatar saída no frontEnd > Esperar um input de escolha do usuário > pesquisar e escolher o 
+preload > substituir preload temporário pelo preload selecionado
