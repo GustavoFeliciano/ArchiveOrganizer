@@ -33,6 +33,7 @@ def ChangeScreenProcess(screenCode, Command):
         case 'Main':
             MainChosenScreen(Command)
 
+        #Options functions case
         case 'Options':
             OptionChosenScreen(Command)
         case 'SOInterface':
@@ -49,6 +50,9 @@ def ChangeScreenProcess(screenCode, Command):
             CTypeCommand(Command)
         case 'CTypeRepeat':
             CTypeRepeatCommand(Command)
+
+        case 'CPInterface':
+            CreatPreloadCommand(Command)
 
 #Inputs da função Main                
 def MainChosenScreen(Command):
@@ -92,15 +96,20 @@ def OptionChosenScreen(Command):
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
         case 5:
-            ExitSoftware()
+            screenCode, command = InputCommands(FrontEnd.CreatePInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.OptionsInterface)
+            ChangeScreenProcess(screenCode, command)
         case 6:
             ExitSoftware()
-
         case 7:
             ExitSoftware()
-
         case 8:
             ExitSoftware()
+        case 9:
+            ExitSoftware()
+        case 10:
+            ExitSoftware()    
 
 #Funções de mudança de opções
 
@@ -152,3 +161,49 @@ def CTypeRepeatCommand(index):
         case 1: OptionChosenScreen(4)
         case 2: pass  
     
+#Funções de criação de preloads
+def CreatPreloadCommand(index):
+    jsondict = dbManager.createPreloadData()
+    boolExit = True
+    boolBF = False
+    boolFF = False
+    boolTP = False
+
+    while boolExit:
+        match index:
+            case 1:
+                FrontEnd.CPEditInterface()
+                inputCommand = InputReceive()
+                dbManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "local", inputCommand)
+                boolBF = True
+            case 2: 
+                FrontEnd.CPEditInterface()
+                inputCommand = InputReceive()
+                dbManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "finalLocal", inputCommand)
+                boolFF = True
+            case 3: 
+                FrontEnd.CPEditInterface()
+                inputCommand = InputReceive()
+                dbManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "type", inputCommand)
+                boolTP = True
+
+        if(boolBF == True & boolFF == True & boolTP == True):
+            FrontEnd.CPRepeatInterface()
+            inputCommand = int(InputReceive())
+            while inputCommand > 2 or inputCommand < 1:
+                FrontEnd.ErrorInputInterface()
+                inputCommand = int(InputReceive())
+                FrontEnd.CPRepeatInterface()
+            match inputCommand:
+                case 1: pass
+                case 2: 
+                    boolExit = False 
+                    break
+        
+        FrontEnd.CPInputInterface()
+        index = int(InputReceive())
+        print(index)
+        while index > 3 or index < 0:
+                        FrontEnd.ErrorInputInterface()
+                        index = int(InputReceive())
+                        FrontEnd.CPInputInterface

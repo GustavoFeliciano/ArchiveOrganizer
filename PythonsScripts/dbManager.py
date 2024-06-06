@@ -54,13 +54,27 @@ def editPreloadData(jsonArchiveDict, preloadName, keyId, Data):
         json.dump(jsonArchiveDict, writeJson)
         writeJson.close()
 
-#Dunção de adição de dados de Preload
+#Função de adição de dados de Preload
 def addPreloadData(jsonArchiveDict, data):
     jsonArchiveDict["Preload"+str(len(jsonArchiveDict)-1)] = data
     with open("../Json/tempDB.json", "w") as writeJson:
         json.dump(jsonArchiveDict, writeJson)
         writeJson.close()
 
+#função de criação de um novo preload
+def createPreloadData():
+    tempArchive = LoadTempData()
+    jsonArchiveDict = {
+        "local": "",
+        "finalLocal":"",
+        "type":"",
+    } 
+    tempArchive["Preload" + str(len(tempArchive)+1)] = jsonArchiveDict
+    with open("../Json/tempDB.json", "w") as writeJson:
+        json.dump(tempArchive, writeJson)
+        writeJson.close()
+
+    return tempArchive
 
 tempArchive = {
     "Preload1": {

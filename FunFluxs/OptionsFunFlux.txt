@@ -23,9 +23,13 @@ especificada exemplo:(".py") > Verificar se o tipo de arquivo já está no tempD
         acessar arquivo tempDB.json > Receber o input para cada parâmetro dentro do dict >
         Formatar para o frontEnd > Receber input para cada escolha possível de mudança > 
         Após modificações sempre deixar disponível a escolha de saída
-
-5 Salvar configuração atual > acessar preload temporário > Passar como parâmetro para a função
+5 criar preload de configuração > receber dados do preload > acessar preload temporário e gravar
+novo preload
+6 Deletar preload de configuração > Mostrar opções para deletar > receber input > Confirmar 
+> deletar > dar opção de deletar outros
+7 Limpar toda configuração > Confirma > grava o preload temporário vazio
+8 Salvar configuração atual > acessar preload temporário > Passar como parâmetro para a função
 de salvamento de preload > Salvar no arquivo saveDB.json
-6 Carregar preload > acessar arquivo saveDB.json > puxar todos os preloads já salvos > 
+9 Carregar preload > acessar arquivo saveDB.json > puxar todos os preloads já salvos > 
 Formatar saída no frontEnd > Esperar um input de escolha do usuário > pesquisar e escolher o 
 preload > substituir preload temporário pelo preload selecionado

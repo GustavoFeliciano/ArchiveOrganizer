@@ -33,11 +33,13 @@ def OptionsInterface():
     print("2 -- Mudar pasta alvo --")
     print("3 -- Mudar pasta base --")
     print("4 -- Mudar configuração de tipo de arquivo --")
-    print("5 -- Salvar configuração atual --")
-    print("6 -- Carregar configuração --")
-    print("7 -- Voltar ao Menu principal --")
-    print("8 -- Sair --")
-    return str('Options'), int(8)
+    print("5 -- Criar configuração de arquivo --")
+    print("6 -- Deletar configuração de arquivo --")
+    print("7 -- Salvar configuração atual --")
+    print("8 -- Carregar configuração --")
+    print("9 -- Voltar ao Menu principal --")
+    print("10 -- Sair --")
+    return str('Options'), int(10)
 
 #Função de interface de configurações atuais
 def SOInterface():    
@@ -183,9 +185,66 @@ def CTypeRepeat():
 
     return str("CTypeRepeat"), int(2)
 
+#Interface de criação de preloads
+def CreatePInterface():
+    time.sleep(0.5)
+    os.system('clear')
 
+    jsonArchiveDict = dbManager.LoadTempData()
 
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print("-- Preload " + str(len(jsonArchiveDict) + 1) + " --")
+    print("1 -- Pasta base: ")
+    print("2 -- Pasta final: ")
+    print("3 -- Tipo de arquivo: ")
+    print("-- Qual item deseja manipular? --")
 
+    return str("CPInterface"), int(3)
+
+def CPEditInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    jsonArchiveDict = dbManager.LoadTempData()
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print("-- Preload " + str(len(jsonArchiveDict)) + " --")
+    print("1 -- Pasta base: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["local"])
+    print("2 -- Pasta final: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["finalLocal"])
+    print("3 -- Tipo de arquivo: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["type"])
+    print("-- Digite o valor do campo selecionado --")
+
+def CPInputInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    jsonArchiveDict = dbManager.LoadTempData()
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print("-- Preload " + str(len(jsonArchiveDict)) + " --")
+    print("1 -- Pasta base: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["local"])
+    print("2 -- Pasta final: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["finalLocal"])
+    print("3 -- Tipo de arquivo: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["type"])
+    print("-- Qual item deseja manipular? --")
+
+def CPRepeatInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    jsonArchiveDict = dbManager.LoadTempData()
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print("-- Preload " + str(len(jsonArchiveDict)) + " --")
+    print("1 -- Pasta base: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["local"])
+    print("2 -- Pasta final: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["finalLocal"])
+    print("3 -- Tipo de arquivo: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["type"])
+    print("-- Deseja continuar editando? --")
+    print("1 -- Sim")
+    print("2 -- Não")
 
 #Interfaces de erro e outras
 def ErrorInputInterface():
@@ -200,5 +259,3 @@ def ErrorInputInterface():
 def ProcessInterface():
     os.system('clear')
     return str('Process'),int(4)
-
-
