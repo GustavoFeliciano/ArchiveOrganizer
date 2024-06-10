@@ -76,6 +76,17 @@ def createPreloadData():
 
     return tempArchive
 
+#Função de delete de um preload
+def deletePreloadData(preloadIndex):
+    
+    tempArchive = LoadTempData()
+    tempArchive.pop("Preload" + str(preloadIndex))
+
+    with open("../Json/tempDB.json", "w") as writeJson:
+        json.dump(tempArchive, writeJson)
+        writeJson.close()
+
+
 tempArchive = {
     "Preload1": {
         "Local": "",

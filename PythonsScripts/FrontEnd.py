@@ -246,6 +246,39 @@ def CPRepeatInterface():
     print("1 -- Sim")
     print("2 -- Não")
 
+def DPInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    count = 0
+    jsonArchiveDict = dbManager.LoadTempData()
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print(" Selecione o Preload a ser excluído:\n")
+
+    for x in jsonArchiveDict.keys():
+
+        count+=1
+
+        print("-- " + x + " --")
+        print("-" + jsonArchiveDict[x]["local"] + "-")
+        print("-" + jsonArchiveDict[x]["finalLocal"] + "-")
+        print("-" + jsonArchiveDict[x]["type"] + "-\n")
+    
+    return(str("DPInterface"),int(count))
+
+def DPRepeatInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print(" Deseja excluir mais um item?\n")
+    print("1 - Sim")
+    print("2 - Não")
+
+    return(str("DPRepeat"),int(2))     
 #Interfaces de erro e outras
 def ErrorInputInterface():
     time.sleep(1)
@@ -253,7 +286,6 @@ def ErrorInputInterface():
     print("Comando inválido, por favor insira novamente")
     time.sleep(1)
     os.system('clear')
-
 
 
 def ProcessInterface():

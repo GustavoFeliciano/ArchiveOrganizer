@@ -53,6 +53,10 @@ def ChangeScreenProcess(screenCode, Command):
 
         case 'CPInterface':
             CreatPreloadCommand(Command)
+        case 'DPInterface':
+            DeletePreloadCommand(Command)
+        case 'DPRepeat':
+            DPRepeatCommand(Command)
 
 #Inputs da função Main                
 def MainChosenScreen(Command):
@@ -95,13 +99,18 @@ def OptionChosenScreen(Command):
             ChangeScreenProcess(screenCode, command)
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
+
         case 5:
             screenCode, command = InputCommands(FrontEnd.CreatePInterface)
             ChangeScreenProcess(screenCode, command)
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
+
         case 6:
-            ExitSoftware()
+            screenCode, command = InputCommands(FrontEnd.DPInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.OptionsInterface)
+            ChangeScreenProcess(screenCode, command)
         case 7:
             ExitSoftware()
         case 8:
@@ -197,7 +206,7 @@ def CreatPreloadCommand(index):
             match inputCommand:
                 case 1: pass
                 case 2: 
-                    boolExit = False 
+                    boolExit = False
                     break
         
         FrontEnd.CPInputInterface()
@@ -206,4 +215,19 @@ def CreatPreloadCommand(index):
         while index > 3 or index < 0:
                         FrontEnd.ErrorInputInterface()
                         index = int(InputReceive())
-                        FrontEnd.CPInputInterface
+                        FrontEnd.CPInputInterface()
+
+def DeletePreloadCommand(index):
+
+    dbManager.deletePreloadData(index)
+    screenCode, Command = InputCommands(FrontEnd.DPRepeatInterface)
+    ChangeScreenProcess(screenCode, Command)
+
+def DPRepeatCommand(Command):
+
+    match Command:
+        case 1:
+            screenCode, command = InputCommands(FrontEnd.DPRepeatInterface)
+            ChangeScreenProcess(screenCode, command)
+        case 2:
+            pass
