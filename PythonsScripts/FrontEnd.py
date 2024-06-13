@@ -46,7 +46,7 @@ def SOInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---\n")
@@ -69,7 +69,7 @@ def CBFolderInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -110,7 +110,7 @@ def CFFolderInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -151,7 +151,7 @@ def CTypeInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -190,7 +190,7 @@ def CreatePInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -206,7 +206,7 @@ def CPEditInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -220,7 +220,7 @@ def CPInputInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -234,7 +234,7 @@ def CPRepeatInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -251,7 +251,7 @@ def DPInterface():
     os.system('clear')
 
     count = 0
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -278,7 +278,23 @@ def DPRepeatInterface():
     print("1 - Sim")
     print("2 - Não")
 
-    return(str("DPRepeat"),int(2))     
+    return(str("DPRepeat"),int(2))   
+
+#Interfaes de limpeza do documento tempDB.json
+
+def DTAInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print(" Realmente deseja excluir toda a configuração atual?")
+    print("         (Não será possível reverter)")
+    print("1 - Sim")
+    print("2 - Não")
+
+    return(str("DTAInterface"),int(2))
+
 #Interfaces de erro e outras
 def ErrorInputInterface():
     time.sleep(1)

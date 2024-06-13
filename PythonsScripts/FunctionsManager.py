@@ -57,6 +57,8 @@ def ChangeScreenProcess(screenCode, Command):
             DeletePreloadCommand(Command)
         case 'DPRepeat':
             DPRepeatCommand(Command)
+        case 'DTAInterface':
+            DTACommand(Command)
 
 #Inputs da função Main                
 def MainChosenScreen(Command):
@@ -111,8 +113,14 @@ def OptionChosenScreen(Command):
             ChangeScreenProcess(screenCode, command)
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
+
         case 7:
             ExitSoftware()
+            screenCode, command = InputCommands(FrontEnd.DTAInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.OptionsInterface)
+            ChangeScreenProcess(screenCode, command)
+
         case 8:
             ExitSoftware()
         case 9:
@@ -130,7 +138,7 @@ def ShowOptionsCommand(Command):
 
 #Função de mudança de pasta base
 def CBFolderCommand(index):
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
     FrontEnd.CBFolderInput(jsonArchiveDict["Preload"+str(index)]["local"])
     input = InputReceive()
     dbManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "local", input)
@@ -144,7 +152,7 @@ def CBRepeatCommand(index):
         
 #Função de mudança de pasta final
 def CFFolderCommand(index):
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
     FrontEnd.CFFolderInput(jsonArchiveDict["Preload"+str(index)]["finalLocal"])
     input = InputReceive()
     dbManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "finalLocal", input)
@@ -158,7 +166,7 @@ def CFRepeatCommand(index):
 
 #Função de mudança de tipo de arquivo
 def CTypeCommand(index):
-    jsonArchiveDict = dbManager.LoadTempData()
+    jsonArchiveDict = dbManager.loadTempData()
     FrontEnd.CTypeInput(jsonArchiveDict["Preload"+str(index)]["type"])
     input = InputReceive()
     dbManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "type", input)
@@ -231,3 +239,11 @@ def DPRepeatCommand(Command):
             ChangeScreenProcess(screenCode, command)
         case 2:
             pass
+
+def DTACommand(Command):
+
+    match Command:
+        case 1:
+            dbManager.deleteTempData()
+        case 2:
+            pass    

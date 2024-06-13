@@ -26,7 +26,7 @@ especificada exemplo:(".py") > Verificar se o tipo de arquivo já está no tempD
 5 criar preload de configuração > receber dados do preload > acessar preload temporário e gravar
 novo preload
 6 Deletar preload de configuração > Mostrar opções para deletar > receber input > Confirmar 
-> deletar > dar opção de deletar outros
+> deletar > dar opção de deletar outros > Refatorar todos os preloads que ficaram no arquivo
 7 Limpar toda configuração > Confirma > grava o preload temporário vazio
 8 Salvar configuração atual > acessar preload temporário > Passar como parâmetro para a função
 de salvamento de preload > Salvar no arquivo saveDB.json

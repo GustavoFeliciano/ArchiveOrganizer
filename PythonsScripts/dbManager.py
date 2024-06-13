@@ -38,53 +38,64 @@ def LoadPreloadData(preloadName):
 
     return jsonArchiveDict[preloadName]
 
-#função de retorno do preloadTemp
-def LoadTempData():
-    with open("../Json/tempDB.json", "r") as readJson:
-        jsonArchiveDict = json.load(readJson)
-        readJson.close()
-
-    return jsonArchiveDict
-
 
 #Função de sobrescrição dos dados do preloadTemp 
 def editPreloadData(jsonArchiveDict, preloadName, keyId, Data):
     jsonArchiveDict[preloadName][keyId] = Data
-    with open("../Json/tempDB.json", "w") as writeJson:
-        json.dump(jsonArchiveDict, writeJson)
-        writeJson.close()
+    writeTempData(jsonArchiveDict)
 
 #Função de adição de dados de Preload
 def addPreloadData(jsonArchiveDict, data):
     jsonArchiveDict["Preload"+str(len(jsonArchiveDict)-1)] = data
-    with open("../Json/tempDB.json", "w") as writeJson:
-        json.dump(jsonArchiveDict, writeJson)
-        writeJson.close()
+    writeTempData(jsonArchiveDict)
 
 #função de criação de um novo preload
 def createPreloadData():
-    tempArchive = LoadTempData()
+    tempArchive = loadTempData()
     jsonArchiveDict = {
         "local": "",
         "finalLocal":"",
         "type":"",
     } 
     tempArchive["Preload" + str(len(tempArchive)+1)] = jsonArchiveDict
-    with open("../Json/tempDB.json", "w") as writeJson:
-        json.dump(tempArchive, writeJson)
-        writeJson.close()
+    writeTempData(tempArchive)
 
     return tempArchive
 
 #Função de delete de um preload
 def deletePreloadData(preloadIndex):
     
-    tempArchive = LoadTempData()
+    tempArchive = loadTempData()
     tempArchive.pop("Preload" + str(preloadIndex))
 
-    with open("../Json/tempDB.json", "w") as writeJson:
-        json.dump(tempArchive, writeJson)
-        writeJson.close()
+    writeTempData(tempArchive)
+
+def deleteTempData():
+
+    tempArchive = loadTempData()
+    tempArchive.clear()
+
+    writeTempData(tempArchive)
+
+
+#função de retorno do preloadTemp
+def loadTempData():
+    with open("../Json/tempDB.json", "r") as readJson:
+        jsonArchiveDict = json.load(readJson)
+        readJson.close()
+
+    return jsonArchiveDict
+
+#função de escrita do preloadTemp
+def writeTempData(tempArchive):
+
+    try:
+        with open("../Json/tempDB.json", "w") as writeJson:
+            json.dump(tempArchive, writeJson)
+            writeJson.close()
+    except:
+        os.system('clear')
+        print("Não foi possível acessar o documento base do programa")
 
 
 tempArchive = {
