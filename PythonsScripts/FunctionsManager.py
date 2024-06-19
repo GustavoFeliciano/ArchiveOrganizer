@@ -1,7 +1,7 @@
 #imports
 import os
 import FrontEnd
-import dbManager
+import DBManager
 #def de fechamento do programa
 def ExitSoftware():
     os.system('clear')
@@ -70,7 +70,7 @@ def MainChosenScreen(Command):
             ChangeScreenProcess(screenCode, command)
             #Mudandança de tela - receber o input - próxima função de options
         case 3:
-            print('Actual Option')
+            DBManager.TestDB()
             #Buscar as configurações setadas
         case 4:
             ExitSoftware()   
@@ -138,10 +138,10 @@ def ShowOptionsCommand(Command):
 
 #Função de mudança de pasta base
 def CBFolderCommand(index):
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
     FrontEnd.CBFolderInput(jsonArchiveDict["Preload"+str(index)]["local"])
     input = InputReceive()
-    dbManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "local", input)
+    DBManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "local", input)
     screenCode, command = InputCommands(FrontEnd.CBFolderRepeat)
     ChangeScreenProcess(screenCode, command)
 
@@ -152,10 +152,10 @@ def CBRepeatCommand(index):
         
 #Função de mudança de pasta final
 def CFFolderCommand(index):
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
     FrontEnd.CFFolderInput(jsonArchiveDict["Preload"+str(index)]["finalLocal"])
     input = InputReceive()
-    dbManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "finalLocal", input)
+    DBManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "finalLocal", input)
     screenCode, command = InputCommands(FrontEnd.CFFolderRepeat)
     ChangeScreenProcess(screenCode, command)
 
@@ -166,10 +166,10 @@ def CFRepeatCommand(index):
 
 #Função de mudança de tipo de arquivo
 def CTypeCommand(index):
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
     FrontEnd.CTypeInput(jsonArchiveDict["Preload"+str(index)]["type"])
     input = InputReceive()
-    dbManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "type", input)
+    DBManager.editPreloadData(jsonArchiveDict,"Preload"+str(index), "type", input)
     screenCode, command = InputCommands(FrontEnd.CTypeRepeat)
     ChangeScreenProcess(screenCode, command)
 
@@ -180,7 +180,7 @@ def CTypeRepeatCommand(index):
     
 #Funções de criação de preloads
 def CreatPreloadCommand(index):
-    jsondict = dbManager.createPreloadData()
+    jsondict = DBManager.createPreloadData()
     boolExit = True
     boolBF = False
     boolFF = False
@@ -191,17 +191,17 @@ def CreatPreloadCommand(index):
             case 1:
                 FrontEnd.CPEditInterface()
                 inputCommand = InputReceive()
-                dbManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "local", inputCommand)
+                DBManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "local", inputCommand)
                 boolBF = True
             case 2: 
                 FrontEnd.CPEditInterface()
                 inputCommand = InputReceive()
-                dbManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "finalLocal", inputCommand)
+                DBManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "finalLocal", inputCommand)
                 boolFF = True
             case 3: 
                 FrontEnd.CPEditInterface()
                 inputCommand = InputReceive()
-                dbManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "type", inputCommand)
+                DBManager.editPreloadData(jsondict, "Preload" + str(len(jsondict)), "type", inputCommand)
                 boolTP = True
 
         if(boolBF == True & boolFF == True & boolTP == True):
@@ -227,7 +227,7 @@ def CreatPreloadCommand(index):
 
 def DeletePreloadCommand(index):
 
-    dbManager.deletePreloadData(index)
+    DBManager.deletePreloadData(index)
     screenCode, Command = InputCommands(FrontEnd.DPRepeatInterface)
     ChangeScreenProcess(screenCode, Command)
 
@@ -244,6 +244,6 @@ def DTACommand(Command):
 
     match Command:
         case 1:
-            dbManager.deleteTempData()
+            DBManager.deleteTempData()
         case 2:
             pass    

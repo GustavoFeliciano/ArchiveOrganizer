@@ -1,7 +1,6 @@
 import os
-import platform
 import time
-import dbManager
+import DBManager
 
 os.system('clear')
 print("--- Inicializando 'Organizador de Arquivos' aguarde um momento ---\n")
@@ -17,10 +16,6 @@ def MainInterface():
     print("3 -- Mostrar configurações atuais --")
     print("4 -- Sair --")
     return str('Main'),int(4)
-
-
-
-
 
 #Interfaces de Opções
 def OptionsInterface():
@@ -46,7 +41,7 @@ def SOInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---\n")
@@ -69,7 +64,7 @@ def CBFolderInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -110,7 +105,7 @@ def CFFolderInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -151,7 +146,7 @@ def CTypeInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -190,7 +185,7 @@ def CreatePInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -206,7 +201,7 @@ def CPEditInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -220,7 +215,7 @@ def CPInputInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -234,7 +229,7 @@ def CPRepeatInterface():
     time.sleep(0.5)
     os.system('clear')
 
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -251,7 +246,7 @@ def DPInterface():
     os.system('clear')
 
     count = 0
-    jsonArchiveDict = dbManager.loadTempData()
+    jsonArchiveDict = DBManager.loadTempData()
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")

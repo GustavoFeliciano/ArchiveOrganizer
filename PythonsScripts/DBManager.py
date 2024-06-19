@@ -1,5 +1,7 @@
 import json
 import os
+import _sqlite3 as dataBase
+import DataBaseQuerys as dbQuery
 
 #Guardar configurações, como:
 #Pasta base
@@ -7,6 +9,10 @@ import os
 #Tipos de arquivo para organização
 #Produzir requisições para o software do tipo:
 #Nome do arquivo - Local de onde está - Local para onde vai
+
+dataBase
+
+
 
 #Função de salvamento de Preload
 #Mudar função de salvamento para a versão com o preload dos preloads
@@ -29,6 +35,10 @@ def SavePreloadData(Data):
     with open("../Json/saveDB.json","w") as writeJson:
         json.dump(jsonArchiveDict, writeJson)
         writeJson.close()
+
+def TestDB():
+
+    dbQuery.createDataBase()
 
 #Função de carregamento de Preload
 def LoadPreloadData(preloadName):
@@ -96,6 +106,14 @@ def writeTempData(tempArchive):
     except:
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
+
+
+
+
+
+
+
+
 
 
 tempArchive = {
