@@ -16,29 +16,16 @@ dataBase
 
 #Função de salvamento de Preload
 #Mudar função de salvamento para a versão com o preload dos preloads
-def SavePreloadData(Data):
-    with open("../Json/saveDB.json", "r") as readJson:
-        jsonArchiveDict = json.load(readJson)
-        readJson.close()
+def SavePreloadData():
+    jsonArchiveDict = loadTempData()
 
-    count = len(list(jsonArchiveDict)) - 1
-
-    preloadData = {
-            "Name": Data[0],
-            "Type": Data[1],
-            "Local": Data[2],
-            "finalLocal": Data[3]
-        }
-
-    jsonArchiveDict["Preload"+str(count)] = preloadData
-
-    with open("../Json/saveDB.json","w") as writeJson:
-        json.dump(jsonArchiveDict, writeJson)
-        writeJson.close()
+    dbQuery.savePreloadDB(jsonArchiveDict)
 
 def TestDB():
 
     dbQuery.createDataBase()
+    dbQuery.savePreloadDB(loadTempData())
+    #dbQuery.loadPreloadDB()
 
 #Função de carregamento de Preload
 def LoadPreloadData(preloadName):

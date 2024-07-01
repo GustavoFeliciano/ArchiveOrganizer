@@ -4,10 +4,10 @@ import DBManager
 
 os.system('clear')
 print("--- Inicializando 'Organizador de Arquivos' aguarde um momento ---\n")
-time.sleep(3)
+time.sleep(0) #Voltar time sleep para 3
 
 def MainInterface():
-    time.sleep(1)
+    time.sleep(0)
     os.system('clear')
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("     --- Menu Principal ---")
@@ -289,6 +289,20 @@ def DTAInterface():
     print("2 - Não")
 
     return(str("DTAInterface"),int(2))
+
+#Interface de salvamento do documento tempDB.json no banco de dados
+
+def SaveDBInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print(" Realmente deseja salvar toda a configuração atual?")
+    print("         (Não será possível reverter)")
+    print("1 - Sim")
+    print("2 - Não")
+
 
 #Interfaces de erro e outras
 def ErrorInputInterface():

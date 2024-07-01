@@ -59,6 +59,8 @@ def ChangeScreenProcess(screenCode, Command):
             DPRepeatCommand(Command)
         case 'DTAInterface':
             DTACommand(Command)
+        case 'SaveDBInterface':
+            SBDInterface(Command)
 
 #Inputs da função Main                
 def MainChosenScreen(Command):
@@ -115,14 +117,17 @@ def OptionChosenScreen(Command):
             ChangeScreenProcess(screenCode, command)
 
         case 7:
-            ExitSoftware()
             screenCode, command = InputCommands(FrontEnd.DTAInterface)
             ChangeScreenProcess(screenCode, command)
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
 
         case 8:
-            ExitSoftware()
+            screenCode, command = InputCommands(FrontEnd.SaveDBInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.SaveDBInterface)
+            ChangeScreenProcess(screenCode, command)
+
         case 9:
             ExitSoftware()
         case 10:
@@ -247,3 +252,11 @@ def DTACommand(Command):
             DBManager.deleteTempData()
         case 2:
             pass    
+
+def SDBInterface(Command):
+
+    match Command:
+        case 1:
+            DBManager.SavePreloadData()
+        case 2:
+            pass
