@@ -23,9 +23,9 @@ def SavePreloadData():
 
 def TestDB():
 
-    dbQuery.createDataBase()
-    dbQuery.savePreloadDB(loadTempData())
-    #dbQuery.loadPreloadDB()
+    #dbQuery.createDataBase()
+    #dbQuery.savePreloadDB(loadTempData())
+    dbQuery.loadPreloadPreviewDB()
 
 #Função de carregamento de Preload
 def LoadPreloadData(preloadName):

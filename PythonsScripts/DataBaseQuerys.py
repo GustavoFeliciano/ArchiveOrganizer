@@ -1,4 +1,9 @@
 import sqlite3 as dataBase
+from tkinter import *
+
+Window = Tk()
+
+Button(Window, text="Opa")
 
 path = "../Database/Options.db"
 
@@ -26,21 +31,9 @@ def savePreloadDB(jsonArchiveTemp):
 
     dataList = []
     tempTuple = ()
-    countID = 1
-
-    while True:
-
-        try:
-            cmd = """SELECT preloadID FROM Preloads
-            WHERE preloadID=?
-            """
-            dbcursor.execute(cmd, (countID,))
-            if dbcursor.fetchone() == None:
-                break
-            else:
-                countID += 1 
-        except Exception as e:
-            print("erro: "+str(e))
+    
+    countID = howManyIDs()
+    countID+=1
 
     cmd = """INSERT INTO Preloads(preloadID, preloadTempID, Local, finalLocal, Type)
     VALUES(?,?,?,?,?)
@@ -59,15 +52,51 @@ def savePreloadDB(jsonArchiveTemp):
     dbcursor.executemany(cmd,dataList)
     dbConn.commit()
 
-def loadPreloadDB():
+def loadPreloadPreviewDB():
+    
+    jsonPreviewArchive = {}
+    jsonTempPreviewArchive = {}
 
-    cmd = """SELECT preloadID FROM Preloads
-    WHERE 
+    countID = howManyIDs()
+    print(countID)
+    for x in range(1, countID):
+        cmd = """SELECT preloadTempID, Local, finalLocal, Type FROM Preloads
+    WHERE preloadID=?
     """
+        dbcursor.execute(cmd,(x,))
+        for y in dbcursor.fetchmany(3):
+            jsonTempPreviewArchive["Preload"+str(y[0])] = {
+                    "local": y[1],
+                    "finalLocal": y[2],
+                    "type": y[3]
+                }
 
-    dbcursor.execute(cmd)
-    for x in dbcursor.fetchall():
-        print(x)
+        jsonPreviewArchive["preloadID"+str(x)] = jsonTempPreviewArchive
 
+    print(jsonPreviewArchive)       
+
+    return jsonPreviewArchive
+
+    
+
+def howManyIDs():
+
+    countID = 1
+
+    while True:
+
+        try:
+            cmd = """SELECT preloadID FROM Preloads
+            WHERE preloadID=?
+            """
+            dbcursor.execute(cmd, (countID,))
+            if dbcursor.fetchone() == None:
+                break
+            else:
+                countID += 1 
+        except Exception as e:
+            print("erro: "+str(e))
+
+    return countID
 
 dbConn, dbcursor = dataBaseConn()
