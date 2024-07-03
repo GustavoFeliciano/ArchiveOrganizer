@@ -3,38 +3,23 @@ import os
 import _sqlite3 as dataBase
 import DataBaseQuerys as dbQuery
 
-#Guardar configurações, como:
-#Pasta base
-#Pasta alvo
-#Tipos de arquivo para organização
-#Produzir requisições para o software do tipo:
-#Nome do arquivo - Local de onde está - Local para onde vai
-
-dataBase
-
-
-
 #Função de salvamento de Preload
-#Mudar função de salvamento para a versão com o preload dos preloads
 def SavePreloadData():
-    jsonArchiveDict = loadTempData()
+    dbQuery.savePreloadDB(loadTempData())
 
-    dbQuery.savePreloadDB(jsonArchiveDict)
+#função de carregamento do preloadPreview para o front end
+def loadPreloadPreviewData():
+    
+    jsonPreviewDict = dbQuery.loadPreloadPreviewDB()
 
-def TestDB():
-
-    #dbQuery.createDataBase()
-    #dbQuery.savePreloadDB(loadTempData())
-    dbQuery.loadPreloadPreviewDB()
+    return jsonPreviewDict
 
 #Função de carregamento de Preload
-def LoadPreloadData(preloadName):
-    with open("../Json/saveDB.json", "r") as readJson:
-        jsonArchiveDict = json.load(readJson)
-        readJson.close()
+def LoadPreloadData(preloadID):
 
-    return jsonArchiveDict[preloadName]
-
+    #dbQuery.test()
+    jsonTempPreload = dbQuery.loadPreloadDB(preloadID)
+    writeTempData(jsonTempPreload)
 
 #Função de sobrescrição dos dados do preloadTemp 
 def editPreloadData(jsonArchiveDict, preloadName, keyId, Data):

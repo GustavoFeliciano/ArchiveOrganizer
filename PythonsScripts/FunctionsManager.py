@@ -33,7 +33,7 @@ def ChangeScreenProcess(screenCode, Command):
         case 'Main':
             MainChosenScreen(Command)
 
-        #Options functions case
+        #case do menu de funções
         case 'Options':
             OptionChosenScreen(Command)
         case 'SOInterface':
@@ -50,17 +50,20 @@ def ChangeScreenProcess(screenCode, Command):
             CTypeCommand(Command)
         case 'CTypeRepeat':
             CTypeRepeatCommand(Command)
-
         case 'CPInterface':
             CreatPreloadCommand(Command)
         case 'DPInterface':
             DeletePreloadCommand(Command)
         case 'DPRepeat':
             DPRepeatCommand(Command)
+        
+        #Funções do banco de dados (menu de opções)
         case 'DTAInterface':
             DTACommand(Command)
         case 'SaveDBInterface':
-            SBDInterface(Command)
+            SDBCommand(Command)
+        case 'LPDBInterface':
+            LDBCommand(Command)
 
 #Inputs da função Main                
 def MainChosenScreen(Command):
@@ -69,6 +72,8 @@ def MainChosenScreen(Command):
             print("")
         case 2:
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.MainInterface)
             ChangeScreenProcess(screenCode, command)
             #Mudandança de tela - receber o input - próxima função de options
         case 3:
@@ -125,13 +130,19 @@ def OptionChosenScreen(Command):
         case 8:
             screenCode, command = InputCommands(FrontEnd.SaveDBInterface)
             ChangeScreenProcess(screenCode, command)
-            screenCode, command = InputCommands(FrontEnd.SaveDBInterface)
+            screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
 
         case 9:
-            ExitSoftware()
+            screenCode, command = InputCommands(FrontEnd.LPDBInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.OptionsInterface)
+            ChangeScreenProcess(screenCode, command)
         case 10:
-            ExitSoftware()    
+            pass
+            
+        case 11:
+            ExitSoftware()
 
 #Funções de mudança de opções
 
@@ -224,12 +235,12 @@ def CreatPreloadCommand(index):
         
         FrontEnd.CPInputInterface()
         index = int(InputReceive())
-        print(index)
         while index > 3 or index < 0:
                         FrontEnd.ErrorInputInterface()
                         index = int(InputReceive())
                         FrontEnd.CPInputInterface()
 
+#Funções de exclusão de preloads temporários
 def DeletePreloadCommand(index):
 
     DBManager.deletePreloadData(index)
@@ -245,6 +256,7 @@ def DPRepeatCommand(Command):
         case 2:
             pass
 
+#Função de deleção dos preloads temporários (limpeza de arquivo)
 def DTACommand(Command):
 
     match Command:
@@ -253,10 +265,17 @@ def DTACommand(Command):
         case 2:
             pass    
 
-def SDBInterface(Command):
+#Função de salvamento de configuração no banco de dados
+def SDBCommand(Command):
 
     match Command:
         case 1:
             DBManager.SavePreloadData()
         case 2:
             pass
+
+#funções de carregamento de configuração no banco de dados
+def LDBCommand(index):
+    
+    if index > 1:
+        DBManager.LoadPreloadData(int(index-1))

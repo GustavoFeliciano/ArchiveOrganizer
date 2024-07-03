@@ -1,10 +1,6 @@
 import sqlite3 as dataBase
 from tkinter import *
 
-Window = Tk()
-
-Button(Window, text="Opa")
-
 path = "../Database/Options.db"
 
 def dataBaseConn():
@@ -33,7 +29,6 @@ def savePreloadDB(jsonArchiveTemp):
     tempTuple = ()
     
     countID = howManyIDs()
-    countID+=1
 
     cmd = """INSERT INTO Preloads(preloadID, preloadTempID, Local, finalLocal, Type)
     VALUES(?,?,?,?,?)
@@ -54,28 +49,42 @@ def savePreloadDB(jsonArchiveTemp):
 
 def loadPreloadPreviewDB():
     
-    jsonPreviewArchive = {}
-    jsonTempPreviewArchive = {}
+    jsonPreviewDict = {}
+    jsonTempPreviewDict = {}
 
     countID = howManyIDs()
-    print(countID)
     for x in range(1, countID):
         cmd = """SELECT preloadTempID, Local, finalLocal, Type FROM Preloads
     WHERE preloadID=?
     """
         dbcursor.execute(cmd,(x,))
         for y in dbcursor.fetchmany(3):
-            jsonTempPreviewArchive["Preload"+str(y[0])] = {
+            jsonTempPreviewDict["Preload"+str(y[0])] = {
                     "local": y[1],
                     "finalLocal": y[2],
                     "type": y[3]
                 }
 
-        jsonPreviewArchive["preloadID"+str(x)] = jsonTempPreviewArchive
+        jsonPreviewDict["preloadID"+str(x)] = jsonTempPreviewDict
 
-    print(jsonPreviewArchive)       
+    return jsonPreviewDict
 
-    return jsonPreviewArchive
+def loadPreloadDB(preloadID):
+
+    jsonPreloadDict = {}
+
+    cmd = """SELECT preloadTempID, Local, finalLocal, Type FROM Preloads
+    WHERE preloadID=?
+    """
+    dbcursor.execute(cmd,(preloadID,))
+    for y in dbcursor.fetchall():
+        jsonPreloadDict["Preload"+str(y[0])] = {
+                "local": y[1],
+                "finalLocal": y[2],
+                "type": y[3]
+            }
+
+    return jsonPreloadDict
 
     
 
@@ -100,3 +109,4 @@ def howManyIDs():
     return countID
 
 dbConn, dbcursor = dataBaseConn()
+createDataBase()

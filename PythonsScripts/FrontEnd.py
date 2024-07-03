@@ -30,11 +30,12 @@ def OptionsInterface():
     print("4 -- Mudar configuração de tipo de arquivo --")
     print("5 -- Criar configuração de arquivo --")
     print("6 -- Deletar configuração de arquivo --")
-    print("7 -- Salvar configuração atual --")
-    print("8 -- Carregar configuração --")
-    print("9 -- Voltar ao Menu principal --")
-    print("10 -- Sair --")
-    return str('Options'), int(10)
+    print("7 -- Deletar todos os preloads de configuração atual --")
+    print("8 -- Salvar configuração --")
+    print("9 -- Carregar configuração --")
+    print("10 -- Voltar ao menu principal")
+    print("11 -- Sair --")
+    return str('Options'), int(11)
 
 #Função de interface de configurações atuais
 def SOInterface():    
@@ -303,6 +304,35 @@ def SaveDBInterface():
     print("1 - Sim")
     print("2 - Não")
 
+    return(str("SaveDBInterface"), int(2))
+
+#Interfaces de carregamento de preload de configuração do banco de dados
+def LPDBInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    count = 1
+    jsonPreviewDict = DBManager.loadPreloadPreviewData()
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("         --- OPÇÕES ---")
+    print("  --Preview dos dados salvos--\n")
+
+    for x in jsonPreviewDict.keys():
+        print(jsonPreviewDict[x])
+        print(str(int(x[9:])+1)+" - Preload Salvo:\n")
+
+        for y in jsonPreviewDict[x].keys():
+            print("    -- Preload"+ str(y[7:])+" --")
+            print("      - Pasta base: "+ jsonPreviewDict[x][y]["local"]+" -")
+            print("      - Pasta final: "+ jsonPreviewDict[x][y]["finalLocal"]+" -")
+            print("      - Tipo de arquivo: "+ jsonPreviewDict[x][y]["type"]+" -\n")
+        count += 1
+        print("\n")
+
+    print(" Digite 1 caso queira cancelar a operação")
+
+    return str("LPDBInterface"), int(count)
 
 #Interfaces de erro e outras
 def ErrorInputInterface():
