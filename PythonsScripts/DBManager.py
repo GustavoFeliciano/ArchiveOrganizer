@@ -2,6 +2,7 @@ import json
 import os
 import _sqlite3 as dataBase
 import DataBaseQuerys as dbQuery
+import asyncio
 
 #Função de salvamento de Preload
 def SavePreloadData():
@@ -79,6 +80,16 @@ def writeTempData(tempArchive):
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
 
+#Função assíncrona para validar arquivo json
+async def jsonValidator():
+    
+    jsonArchiveDict = loadTempData()
+    await asyncio.sleep(2)
+    for x in jsonArchiveDict.keys():
+            for y in jsonArchiveDict[x].keys():
+                if jsonArchiveDict[x][y] == None or jsonArchiveDict[x]["local"] == '':
+                    return False
+    return True
 
 
 

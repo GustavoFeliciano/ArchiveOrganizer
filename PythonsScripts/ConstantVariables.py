@@ -1,0 +1,22 @@
+#Variáveis de comando para cada sistema operacional
+THIS_DIRECTORY_LIN="pwd"
+THIS_DIRECTORY_WIN="cd"
+THIS_DIRECTORY_MAC="pwd"
+
+CHANGE_DIRECTORY="cd"
+
+LIST_FILES_LIN="ls"
+LIST_FILES_WIN="dir"
+LIST_FILES_MAC="ls"
+
+DELETE_DIRECTORY_LIN="rmdir"
+DELETE_DIRECTORY_WIN="rmdir /s /q"
+DELETE_DIRECTORY_MAC="rm"
+
+DELETE_FILES_LIN="rm"
+DELETE_FILES_WIN="del"
+
+SEARCH_FILES_LIN="find -name"
+SEARCH_FILES_WIN="dir /b/s"
+
+MOVE_FILES_LIN="mv"

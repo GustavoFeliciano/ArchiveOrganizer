@@ -1,6 +1,7 @@
 import os
 import time
 import DBManager
+import asyncio
 
 os.system('clear')
 print("--- Inicializando 'Organizador de Arquivos' aguarde um momento ---\n")
@@ -15,7 +16,7 @@ def MainInterface():
     print("2 -- Abrir configurações --")
     print("3 -- Mostrar configurações atuais --")
     print("4 -- Sair --")
-    return str('Main'),int(4)
+    return str('MainInterface'),int(4)
 
 #Interfaces de Opções
 def OptionsInterface():
@@ -36,6 +37,27 @@ def OptionsInterface():
     print("10 -- Voltar ao menu principal")
     print("11 -- Sair --")
     return str('Options'), int(11)
+
+#Interfaces assíncronas para a funcionalidade do sistema
+async def AOInterface():
+    time.sleep(0.5)
+    os.system('clear')
+    charLoading = [
+        " Verificando configurações",
+        " Verificando configurações.",
+        " Verificando configurações..",
+        " Verificando configurações...",
+        " Verificando configurações....",
+        " Verificando configurações....."
+        ]
+    
+    while True:
+        print("---- ORGANIZADOR DE ARQUIVOS ----")
+        print("  --- Inicializando sistema  ---\n")
+        for x in charLoading:
+            print(x,end="\r")
+            await asyncio.sleep(0.2)
+        os.system('clear')
 
 #Função de interface de configurações atuais
 def SOInterface():    

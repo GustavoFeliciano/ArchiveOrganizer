@@ -2,11 +2,15 @@
 import os
 import FrontEnd
 import DBManager
+import subprocess
+import asyncio
+
 #def de fechamento do programa
 def ExitSoftware():
     os.system('clear')
     print('Finalizando programa...')
     os.system('exit')
+    
 
 #def de recepção de input de comando
 def InputCommands(actualScreenFun):
@@ -30,8 +34,12 @@ def InputReceive():
 #defs de mudança de telas principais
 def ChangeScreenProcess(screenCode, Command):
     match screenCode:
-        case 'Main':
+        case 'AOInterface':
+            AOInit(Command)
+        case 'MainInterface':
             MainChosenScreen(Command)
+        case 'SOInterface':
+            ShowOptionsCommand(Command)
 
         #case do menu de funções
         case 'Options':
@@ -68,17 +76,24 @@ def ChangeScreenProcess(screenCode, Command):
 #Inputs da função Main                
 def MainChosenScreen(Command):
     match Command:
-        case 1: 
-            print("")
+        case 1:
+            asyncio.run(AOInit())
+
+            screenCode, command = InputCommands(FrontEnd.MainInterface)
+            ChangeScreenProcess(screenCode, command)
+
         case 2:
             screenCode, command = InputCommands(FrontEnd.OptionsInterface)
             ChangeScreenProcess(screenCode, command)
             screenCode, command = InputCommands(FrontEnd.MainInterface)
             ChangeScreenProcess(screenCode, command)
-            #Mudandança de tela - receber o input - próxima função de options
+
         case 3:
-            DBManager.TestDB()
-            #Buscar as configurações setadas
+            screenCode, command = InputCommands(FrontEnd.SOInterface)
+            ChangeScreenProcess(screenCode, command)
+            screenCode, command = InputCommands(FrontEnd.MainInterface)
+            ChangeScreenProcess(screenCode, command)
+
         case 4:
             ExitSoftware()   
 
@@ -143,6 +158,14 @@ def OptionChosenScreen(Command):
             
         case 11:
             ExitSoftware()
+
+async def AOInit():
+    Front_End_Task = asyncio.create_task(FrontEnd.AOInterface())
+    Json_Validator_Task = asyncio.create_task(DBManager.jsonValidator())
+
+    jsonIsValid = await Json_Validator_Task, Front_End_Task
+
+    
 
 #Funções de mudança de opções
 
