@@ -39,8 +39,10 @@ def OptionsInterface():
     return str('Options'), int(11)
 
 #Interfaces assíncronas para a funcionalidade do sistema
-async def AOInterface():
-    time.sleep(0.5)
+
+#Interface de validação do Json (ANIM)
+async def JsonValidatorInterface():
+    await asyncio.sleep(0.5)
     os.system('clear')
     charLoading = [
         " Verificando configurações",
@@ -59,6 +61,51 @@ async def AOInterface():
             await asyncio.sleep(0.2)
         os.system('clear')
 
+#Interface de Erro do validador Json
+def JsonINVInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("  -- Erro de configuração --")
+    print(" O arquivo de configuração é inválido, possuindo campos nulos de configuração")
+    print(" Por favor, complete os campos com a função de edição de Preloads e repita o processo")    
+
+    time.sleep(4)
+    
+#Interface de validação dos arquivos (ANIM)    
+async def FileValidatorInterface():
+    await asyncio.sleep(0.5)
+    #os.system('clear')
+    charLoading = [
+        " Verificando arquivos",
+        " Verificando arquivos.",
+        " Verificando arquivos..",
+        " Verificando arquivos...",
+        " Verificando arquivos....",
+        " Verificando arquivos....."
+        ]
+    
+    while True:
+        #print("---- ORGANIZADOR DE ARQUIVOS ----")
+        #print("  --- Inicializando sistema  ---\n")
+        for x in charLoading:
+            #print(x,end="\r")
+            await asyncio.sleep(0.2)
+        #os.system('clear')
+
+#Interface de Erro do validador de arquivos
+def FileINVInterface(folder):
+    time.sleep(0.5)
+    os.system('clear')
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("  -- Erro de configuração --")
+    print(f" Não foi achado nenhum arquivo na pasta: {folder}")
+    print(""" Por favor, edite os campos com a função de edição
+           de Preloads e repita o processo""")    
+
+    time.sleep(4)
 #Função de interface de configurações atuais
 def SOInterface():    
     time.sleep(0.5)

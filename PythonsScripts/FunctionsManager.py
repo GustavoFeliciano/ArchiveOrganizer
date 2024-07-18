@@ -4,13 +4,12 @@ import FrontEnd
 import DBManager
 import subprocess
 import asyncio
-
+from ConstantVariables import *
 #def de fechamento do programa
 def ExitSoftware():
     os.system('clear')
     print('Finalizando programa...')
     os.system('exit')
-    
 
 #def de recepção de input de comando
 def InputCommands(actualScreenFun):
@@ -77,8 +76,20 @@ def ChangeScreenProcess(screenCode, Command):
 def MainChosenScreen(Command):
     match Command:
         case 1:
-            asyncio.run(AOInit())
+            jsonIsValid = asyncio.run(JsonValidator_CORROUTINE())
 
+            if jsonIsValid == True:
+                fileIsValid =asyncio.run(FileValidator_CORROUTINE())
+
+            fileIsValid =asyncio.run(FileValidator_CORROUTINE())
+
+            #if fileIsValid == True:
+            
+            screenCode, command = InputCommands(FrontEnd.MainInterface)
+            ChangeScreenProcess(screenCode, command)
+            
+
+            
             screenCode, command = InputCommands(FrontEnd.MainInterface)
             ChangeScreenProcess(screenCode, command)
 
@@ -159,13 +170,79 @@ def OptionChosenScreen(Command):
         case 11:
             ExitSoftware()
 
-async def AOInit():
-    Front_End_Task = asyncio.create_task(FrontEnd.AOInterface())
+async def JsonValidator_CORROUTINE():
+    Front_End_jsonValidator_Task = asyncio.create_task(FrontEnd.JsonValidatorInterface())
     Json_Validator_Task = asyncio.create_task(DBManager.jsonValidator())
 
-    jsonIsValid = await Json_Validator_Task, Front_End_Task
+    jsonIsValid = await Json_Validator_Task, Front_End_jsonValidator_Task
+    
+    return jsonIsValid
+        
+async def FileValidator_CORROUTINE():
+    #Vai dar comandos ao sistema, procurando arquivos de cada tipo nas pastas indicadas
+    #Sistema vai guardar o nome dos arquivos e seus lugares num arquivo json temporário (Dumps)
+    #Se houver alguma pesquisa sem arquivos, informar os dados de configuração
+    # que não conseguiu encontrar arquivos
+    #Após disso, rodar próxima etapa
+
+    Front_End_filesValidator_Task = asyncio.create_task(FrontEnd.FileValidatorInterface())
+    Files_Validator_Task = asyncio.create_task(FileValidator())
+
+    filesIsValid = await Files_Validator_Task, Front_End_filesValidator_Task
+
+    return filesIsValid
 
     
+
+async def FileValidator():
+
+    JsonArchiveDict = DBManager.loadTempData()
+    fileList = []
+    fileNameTemp = ''
+    sequenceCharCount = 0
+    sequenceChar = ''
+    for x in JsonArchiveDict.keys():
+        folderPath = JsonArchiveDict[x]["local"]
+        fileType = JsonArchiveDict[x]["type"]
+        match folderPath:
+            case str(DESKTOP_VAR):
+                str(SEARCH_FILES+"'*"+fileType+"'")
+                stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", "/home/gwdcks/GitProjects/ArchiveOrganizer/Json")
+            case str(DOCUMENTS_VAR):
+                Shell(f"{SEARCH_FILES}'*{fileType}'", DOCUMENTS_PATH)
+            case str(VIDEOS_VAR):
+                Shell(f"{SEARCH_FILES}'*{fileType}'", VIDEOS_PATH)
+            case str(IMAGE_VAR):
+                Shell(f"{SEARCH_FILES}'*{fileType}'", IMAGE_PATH)
+                
+            #atrela essa lista ao arquivo json 'De alguma forma', pra mostrar se tem
+            #algum arquivo que o usuário não queira mexer e poder tirar da lista final
+        if stringFileList == None or stringFileList == '':
+            FrontEnd.JsonINVInterface(folderPath)
+            return False
+
+        for char in stringFileList:
+
+            if char == '' or None:
+                continue
+            
+            fileNameTemp += char
+            if char != fileType[sequenceCharCount:int(sequenceCharCount+1)]:
+                sequenceChar = ''
+                sequenceCharCount = 0
+                continue
+            
+            sequenceChar += char
+            sequenceCharCount += 1
+            if sequenceChar == fileType:
+                if sequenceChar == fileType:
+                    fileList.append(fileNameTemp)
+                    sequenceChar = ''
+                    sequenceCharCount = 0
+                    fileNameTemp = ''
+                
+    #Implementação da lista de arquivos em algum lugar
+            
 
 #Funções de mudança de opções
 
@@ -302,3 +379,10 @@ def LDBCommand(index):
     
     if index > 1:
         DBManager.LoadPreloadData(int(index-1))
+
+def Shell(Command, dir):
+    shellCommand = subprocess.Popen(Command, cwd=dir, shell=True, stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    
+    stdout = shellCommand.stdout.read().decode()
+    return stdout

@@ -1,4 +1,3 @@
-import os
 import FrontEnd
 import platform
 import FunctionsManager
