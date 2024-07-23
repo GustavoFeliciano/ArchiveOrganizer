@@ -23,6 +23,7 @@ if osUsable == 'Linux':
     CHANGE_DIRECTORY="cd "
     GO_TO_HOME=str("cd /home/"+ USER_NAME)
     LIST_ALL="ls "
+    MAKE_DIRECTORY="mkdir "
     DELETE_DIRECTORY="rmdir "
     DELETE_FILES="rm "
     SEARCH_FILES="find -name "
@@ -76,6 +77,7 @@ elif osUsable == 'Windows':
     CHANGE_DIRECTORY="cd "
     GO_TO_HOME="cd %homedrive%%homepath% "
     LIST_ALL="dir "
+    MAKE_DIRECTORY="mkdir "
     DELETE_DIRECTORY="rmdir /s /q "
     DELETE_FILES="del "
     SEARCH_FILES="dir /b/s "

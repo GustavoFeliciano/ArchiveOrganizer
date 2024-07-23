@@ -38,7 +38,7 @@ def createPreloadData():
     jsonArchiveDict = {
         "local": "",
         "finalLocal":"",
-        "type":"",
+        "type":""
     } 
     tempArchive["Preload" + str(len(tempArchive)+1)] = jsonArchiveDict
     writeTempData(tempArchive)
@@ -80,23 +80,24 @@ def writeTempData(tempArchive):
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
 
-#Função assíncrona para validar arquivo json
-async def jsonValidator():
-    
-    jsonArchiveDict = loadTempData()
-    await asyncio.sleep(2)
-    for x in jsonArchiveDict.keys():
-            for y in jsonArchiveDict[x].keys():
-                if jsonArchiveDict[x][y] == None or jsonArchiveDict[x]["local"] == '':
-                    return False
-    return True
+#função de retorno do fileList
+def loadFileListData():
+    with open("../Json/FileList.json", "r") as readJson:
+        jsonArchiveDict = json.load(readJson)
+        readJson.close()
 
+    return jsonArchiveDict
 
+#função de escrita do fileList
+def writeFileListData(tempArchive):
 
-
-
-
-
+    try:
+        with open("../Json/FileList.json", "w") as writeJson:
+            json.dump(tempArchive, writeJson)
+            writeJson.close()
+    except:
+        os.system('clear')
+        print("Não foi possível acessar o documento base do programa")
 
 
 tempArchive = {

@@ -40,22 +40,22 @@ def OptionsInterface():
 
 #Interfaces assíncronas para a funcionalidade do sistema
 
-#Interface de validação do Json (ANIM)
-async def JsonValidatorInterface():
+#Interface animada de loading
+async def LoadingAnimInterface(bodyText, Tittle):
     await asyncio.sleep(0.5)
     os.system('clear')
     charLoading = [
-        " Verificando configurações",
-        " Verificando configurações.",
-        " Verificando configurações..",
-        " Verificando configurações...",
-        " Verificando configurações....",
-        " Verificando configurações....."
+        f" {bodyText}",
+        f" {bodyText}.",
+        f" {bodyText}..",
+        f" {bodyText}...",
+        f" {bodyText}....",
+        f" {bodyText}....."
         ]
     
     while True:
         print("---- ORGANIZADOR DE ARQUIVOS ----")
-        print("  --- Inicializando sistema  ---\n")
+        print(f"  --- {Tittle}  ---\n")
         for x in charLoading:
             print(x,end="\r")
             await asyncio.sleep(0.2)
@@ -72,27 +72,6 @@ def JsonINVInterface():
     print(" Por favor, complete os campos com a função de edição de Preloads e repita o processo")    
 
     time.sleep(4)
-    
-#Interface de validação dos arquivos (ANIM)    
-async def FileValidatorInterface():
-    await asyncio.sleep(0.5)
-    #os.system('clear')
-    charLoading = [
-        " Verificando arquivos",
-        " Verificando arquivos.",
-        " Verificando arquivos..",
-        " Verificando arquivos...",
-        " Verificando arquivos....",
-        " Verificando arquivos....."
-        ]
-    
-    while True:
-        #print("---- ORGANIZADOR DE ARQUIVOS ----")
-        #print("  --- Inicializando sistema  ---\n")
-        for x in charLoading:
-            #print(x,end="\r")
-            await asyncio.sleep(0.2)
-        #os.system('clear')
 
 #Interface de Erro do validador de arquivos
 def FileINVInterface(folder):
@@ -388,7 +367,6 @@ def LPDBInterface():
     print("  --Preview dos dados salvos--\n")
 
     for x in jsonPreviewDict.keys():
-        print(jsonPreviewDict[x])
         print(str(int(x[9:])+1)+" - Preload Salvo:\n")
 
         for y in jsonPreviewDict[x].keys():

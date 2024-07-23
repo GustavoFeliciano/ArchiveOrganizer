@@ -78,17 +78,14 @@ def MainChosenScreen(Command):
         case 1:
             jsonIsValid = asyncio.run(JsonValidator_CORROUTINE())
 
-            if jsonIsValid == True:
+            if jsonIsValid[0] == True:
                 fileIsValid =asyncio.run(FileValidator_CORROUTINE())
-
-            fileIsValid =asyncio.run(FileValidator_CORROUTINE())
-
-            #if fileIsValid == True:
-            
-            screenCode, command = InputCommands(FrontEnd.MainInterface)
-            ChangeScreenProcess(screenCode, command)
-            
-
+                if fileIsValid[0] == True:
+                    asyncio.run(MoveFiles_CORROUTINE())
+                else:
+                    FrontEnd.FileINVInterface()
+            else:
+                FrontEnd.JsonINVInterface()
             
             screenCode, command = InputCommands(FrontEnd.MainInterface)
             ChangeScreenProcess(screenCode, command)
@@ -171,78 +168,114 @@ def OptionChosenScreen(Command):
             ExitSoftware()
 
 async def JsonValidator_CORROUTINE():
-    Front_End_jsonValidator_Task = asyncio.create_task(FrontEnd.JsonValidatorInterface())
-    Json_Validator_Task = asyncio.create_task(DBManager.jsonValidator())
+    bodytext = 'Validando arquivo de configuração'
+    Tittle = 'Iniciando Sistema'
+
+    Front_End_jsonValidator_Task = asyncio.create_task(
+        FrontEnd.LoadingAnimInterface(bodytext, Tittle))
+    Json_Validator_Task = asyncio.create_task(jsonValidator())
 
     jsonIsValid = await Json_Validator_Task, Front_End_jsonValidator_Task
     
     return jsonIsValid
         
 async def FileValidator_CORROUTINE():
-    #Vai dar comandos ao sistema, procurando arquivos de cada tipo nas pastas indicadas
-    #Sistema vai guardar o nome dos arquivos e seus lugares num arquivo json temporário (Dumps)
-    #Se houver alguma pesquisa sem arquivos, informar os dados de configuração
-    # que não conseguiu encontrar arquivos
-    #Após disso, rodar próxima etapa
+    bodytext = 'Escaneando arquivos'
+    Tittle = 'Iniciando Sistema'
 
-    Front_End_filesValidator_Task = asyncio.create_task(FrontEnd.FileValidatorInterface())
+    Front_End_FilesValidator_Task = asyncio.create_task(
+        FrontEnd.LoadingAnimInterface(bodytext, Tittle))
     Files_Validator_Task = asyncio.create_task(FileValidator())
 
-    filesIsValid = await Files_Validator_Task, Front_End_filesValidator_Task
+    filesIsValid = await Files_Validator_Task, Front_End_FilesValidator_Task
 
     return filesIsValid
 
+async def MoveFiles_CORROUTINE():
     
+    bodytext = 'Movendo arquivos'
+    Tittle = 'Iniciando Sistema'
 
+    FrontEnd_Movefiles_Task = asyncio.create_task(
+        FrontEnd.LoadingAnimInterface(bodytext, Tittle))
+    Move_Files_Task = asyncio.create_task(MoveFiles())
+
+    isSuccess = await Move_Files_Task, FrontEnd_Movefiles_Task
+
+#Função assíncrona para validar arquivo json
+async def jsonValidator():
+    
+    jsonArchiveDict = DBManager.loadTempData()
+    await asyncio.sleep(2)
+    for x in jsonArchiveDict.keys():
+            for y in jsonArchiveDict[x].keys():
+                if jsonArchiveDict[x][y] == None or jsonArchiveDict[x][y] == '':
+                    return False
+    return True
+
+#função assíncrona para validar arquivos no sistema
 async def FileValidator():
 
+    await asyncio.sleep(2)
     JsonArchiveDict = DBManager.loadTempData()
-    fileList = []
-    fileNameTemp = ''
-    sequenceCharCount = 0
-    sequenceChar = ''
+
     for x in JsonArchiveDict.keys():
+        fileCount = 1
         folderPath = JsonArchiveDict[x]["local"]
         fileType = JsonArchiveDict[x]["type"]
-        match folderPath:
-            case str(DESKTOP_VAR):
-                str(SEARCH_FILES+"'*"+fileType+"'")
-                stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", "/home/gwdcks/GitProjects/ArchiveOrganizer/Json")
-            case str(DOCUMENTS_VAR):
-                Shell(f"{SEARCH_FILES}'*{fileType}'", DOCUMENTS_PATH)
-            case str(VIDEOS_VAR):
-                Shell(f"{SEARCH_FILES}'*{fileType}'", VIDEOS_PATH)
-            case str(IMAGE_VAR):
-                Shell(f"{SEARCH_FILES}'*{fileType}'", IMAGE_PATH)
-                
-            #atrela essa lista ao arquivo json 'De alguma forma', pra mostrar se tem
-            #algum arquivo que o usuário não queira mexer e poder tirar da lista final
+        if folderPath == DESKTOP_VAR:
+            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", DESKTOP_PATH)
+        elif folderPath == DOCUMENTS_VAR:
+            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", DOCUMENTS_PATH)
+        elif folderPath == VIDEOS_VAR:
+            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", VIDEOS_PATH)
+        elif folderPath == IMAGE_VAR:
+            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", IMAGE_PATH)
+        else:
+            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", str(HOME_PATH+'/'+folderPath))
+            
         if stringFileList == None or stringFileList == '':
             FrontEnd.JsonINVInterface(folderPath)
             return False
 
         for char in stringFileList:
+            JsonArchiveDict[x][f"File{fileCount}"] = char
+            fileCount+=1
+            
+    DBManager.writeFileListData(JsonArchiveDict)
+    return True
+            
+async def MoveFiles():
 
-            if char == '' or None:
+    await asyncio.sleep(2)
+
+    jsonArchiveDict = DBManager.loadFileListData()
+
+    for x in jsonArchiveDict.keys():
+        fileCount = 1
+        count = 0
+        finalFolderPath = jsonArchiveDict[x]["finalLocal"]
+        localBasePath = jsonArchiveDict[x]["local"]
+
+        if finalFolderPath != DESKTOP_VAR and finalFolderPath != DOCUMENTS_VAR and finalFolderPath != VIDEOS_VAR and finalFolderPath != IMAGE_VAR:
+            Shell(f"{MAKE_DIRECTORY}{finalFolderPath}", HOME_PATH)
+
+        for y in jsonArchiveDict[x].keys():
+
+            if count < 3 : 
+                count+=1
                 continue
-            
-            fileNameTemp += char
-            if char != fileType[sequenceCharCount:int(sequenceCharCount+1)]:
-                sequenceChar = ''
-                sequenceCharCount = 0
-                continue
-            
-            sequenceChar += char
-            sequenceCharCount += 1
-            if sequenceChar == fileType:
-                if sequenceChar == fileType:
-                    fileList.append(fileNameTemp)
-                    sequenceChar = ''
-                    sequenceCharCount = 0
-                    fileNameTemp = ''
-                
-    #Implementação da lista de arquivos em algum lugar
-            
+
+            if finalFolderPath == DESKTOP_VAR:
+                Shell(f"{MOVE_FILES}{jsonArchiveDict[x][y]} {DESKTOP_PATH}", f"{HOME_PATH}/{localBasePath}")
+            elif finalFolderPath == DOCUMENTS_VAR:
+                Shell(f"{MOVE_FILES}{jsonArchiveDict[x][y]} {DOCUMENTS_PATH}", f"{HOME_PATH}/{localBasePath}")
+            elif finalFolderPath == VIDEOS_VAR:
+                Shell(f"{MOVE_FILES}{jsonArchiveDict[x][y]} {VIDEOS_PATH}", f"{HOME_PATH}/{localBasePath}")
+            elif finalFolderPath == IMAGE_VAR:
+                Shell(f"{MOVE_FILES}{jsonArchiveDict[x][y]} {IMAGE_PATH}", f"{HOME_PATH}/{localBasePath}")
+            else:
+                Shell(f"{MOVE_FILES}{jsonArchiveDict[x][y]} {HOME_PATH}/{finalFolderPath}", f"{HOME_PATH}/{localBasePath}")
 
 #Funções de mudança de opções
 
@@ -384,5 +417,5 @@ def Shell(Command, dir):
     shellCommand = subprocess.Popen(Command, cwd=dir, shell=True, stdout=subprocess.PIPE,
                                     stderr=subprocess.PIPE, stdin=subprocess.PIPE)
     
-    stdout = shellCommand.stdout.read().decode()
+    stdout = shellCommand.stdout.read().decode().split()
     return stdout
