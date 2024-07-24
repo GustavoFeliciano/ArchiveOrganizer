@@ -33,8 +33,6 @@ def InputReceive():
 #defs de mudança de telas principais
 def ChangeScreenProcess(screenCode, Command):
     match screenCode:
-        case 'AOInterface':
-            AOInit(Command)
         case 'MainInterface':
             MainChosenScreen(Command)
         case 'SOInterface':
@@ -81,7 +79,11 @@ def MainChosenScreen(Command):
             if jsonIsValid[0] == True:
                 fileIsValid =asyncio.run(FileValidator_CORROUTINE())
                 if fileIsValid[0] == True:
-                    asyncio.run(MoveFiles_CORROUTINE())
+
+                    userFileIsValid = UserValidation()
+                    print("Passou da função")
+                    if userFileIsValid: asyncio.run(MoveFiles_CORROUTINE())
+
                 else:
                     FrontEnd.FileINVInterface()
             else:
@@ -167,6 +169,48 @@ def OptionChosenScreen(Command):
         case 11:
             ExitSoftware()
 
+#Funções de validação
+
+def UserValidation():
+    close = False
+    con = False
+
+    FrontEnd.UserValidationInterface()
+    FrontEnd.UserValidationInputInterface()
+    command = InputReceive()
+    
+    while True:
+
+        match command:
+            case 1:
+                return True
+            case 2:
+                return False
+            case 3:
+                pass
+
+        FrontEnd.UserValidationInterface()
+        DBManager.DeleteFileData(InputReceive())
+
+        
+        while True:
+
+            FrontEnd.UserValidationInterface()
+            FrontEnd.UserValidationContinueInterface()
+            command = int(InputReceive())
+
+            match command:
+                case 1:
+                    return True
+                case 2:
+                    pass
+
+            FrontEnd.UserValidationInterface()
+            DBManager.DeleteFileData(InputReceive())
+
+#Funções assíncronas
+
+#CORROUTINES functions, reponsáveis para rodar animações com os validadores
 async def JsonValidator_CORROUTINE():
     bodytext = 'Validando arquivo de configuração'
     Tittle = 'Iniciando Sistema'
@@ -238,11 +282,12 @@ async def FileValidator():
             FrontEnd.JsonINVInterface(folderPath)
             return False
 
-        for char in stringFileList:
-            JsonArchiveDict[x][f"File{fileCount}"] = char
+        for File in stringFileList:
+            JsonArchiveDict[x][f"File{fileCount}"] = File
             fileCount+=1
-            
+
     DBManager.writeFileListData(JsonArchiveDict)
+    FrontEnd
     return True
             
 async def MoveFiles():

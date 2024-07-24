@@ -85,6 +85,47 @@ def FileINVInterface(folder):
            de Preloads e repita o processo""")    
 
     time.sleep(4)
+
+#Função de validação do usuário
+def UserValidationInterface():
+
+    time.sleep(0.5)
+    os.system('clear')
+
+    jsonArchiveDict = DBManager.loadFileListData()
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print("  --- Validação do usuário --- ")
+    print(" Os documentos abaixo foram encontrados de acordo com suas configurações")
+    print(" Caso haja algum documento que não faz parte do desejado, por favor")
+    print(" Informe ao programa com seus devidos códigos\n")
+
+    for x in jsonArchiveDict.keys():
+        print(f"{x}:\n")
+        print(f"  Pasta base: {jsonArchiveDict[x]["local"]}")
+        print(f"  Pasta final: {jsonArchiveDict[x]["finalLocal"]}\n")
+        print(f"  Arquivos encontrados nesse Preload:\n")
+        for y in jsonArchiveDict[x].keys():
+            
+            if y != "local" and y != "finalLocal" and y != "type":
+                print(f"   {y}: {jsonArchiveDict[x][y]}\n")
+
+            
+
+    print("Exemplo de entrada: '2,5' -> Preload 2 e o arquivo 5")
+    print("Não serão aceitas mais de uma entrada por vez\n")
+
+def UserValidationInputInterface():
+
+    print("1 -- Se deseja continuar o programa")
+    print("2 -- Se deseja voltar ao menu principal")
+    print("3 -- Se deseja deletar um arquivo")
+
+def UserValidationContinueInterface():
+
+    print("1 -- Se deseja continuar o programa")
+    print("2 -- Se deseja continua apagando arquivos")
+
 #Função de interface de configurações atuais
 def SOInterface():    
     time.sleep(0.5)
@@ -103,7 +144,6 @@ def SOInterface():
     print("\n1 -- Repetir")
     print("2 -- Voltar ao menu anterior")
     return str("SOInterface"), int(2)
-
 
 #Funções de interface para mudar pastas
 

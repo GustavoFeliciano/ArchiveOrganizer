@@ -80,6 +80,7 @@ def writeTempData(tempArchive):
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
 
+#Funções de manipulação do arquivo fileList.json
 #função de retorno do fileList
 def loadFileListData():
     with open("../Json/FileList.json", "r") as readJson:
@@ -98,6 +99,30 @@ def writeFileListData(tempArchive):
     except:
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
+
+#Função de deletar arquivos do Preload
+def DeleteFileData(command):
+    fileVar = '' 
+    preloadVar = ''
+    strLen = len(command)
+    for char in command:
+        if char == ",":
+            preloadVar = tempCommand
+            tempCommand = ''
+            continue
+        
+        tempCommand = char
+
+        if char == command[int(strLen-1):]:
+            fileVar = tempCommand
+            tempCommand = ''
+
+    jsonArchiveDict = loadFileListData()
+    jsonArchiveDict[str("Preload"+preloadVar)].pop(str("File"+fileVar))
+    writeFileListData(jsonArchiveDict)
+
+            
+
 
 
 tempArchive = {
