@@ -47,11 +47,13 @@ def createPreloadData():
 
 #Função de delete de um preload
 def deletePreloadData(preloadIndex):
-    
-    tempArchive = loadTempData()
-    tempArchive.pop("Preload" + str(preloadIndex))
+    try:
+        tempArchive = loadTempData()
+        tempArchive.pop("Preload" + str(preloadIndex))
 
-    writeTempData(tempArchive)
+        writeTempData(tempArchive)
+    except:
+        return False
 
 def deleteTempData():
 
@@ -101,25 +103,11 @@ def writeFileListData(tempArchive):
         print("Não foi possível acessar o documento base do programa")
 
 #Função de deletar arquivos do Preload
-def DeleteFileData(command):
-    fileVar = '' 
-    preloadVar = ''
-    strLen = len(command)
-    for char in command:
-        if char == ",":
-            preloadVar = tempCommand
-            tempCommand = ''
-            continue
-        
-        tempCommand = char
-
-        if char == command[int(strLen-1):]:
-            fileVar = tempCommand
-            tempCommand = ''
-
+def DeleteFileData(fileVar, preloadVar):
     jsonArchiveDict = loadFileListData()
     jsonArchiveDict[str("Preload"+preloadVar)].pop(str("File"+fileVar))
     writeFileListData(jsonArchiveDict)
+    
 
             
 

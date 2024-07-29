@@ -5,7 +5,7 @@ import time
 import subprocess
 import locale, ctypes
 
-osUsable = platform.system()
+OS_PLATFORM = platform.system()
 USER_NAME = ''
 
 shellCommand = subprocess.Popen("whoami", shell=True, stdout=subprocess.PIPE,
@@ -15,19 +15,14 @@ stdout = shellCommand.stdout.read() + shellCommand.stderr.read()
 USER_NAME = stdout.decode()
 USER_NAME = USER_NAME[:int(len(USER_NAME)-1)]
 
-if osUsable == 'Linux':
+if OS_PLATFORM == 'Linux':
 
     LANGUAGE_OS = os.getenv('LANG')
 
-    THIS_DIRECTORY="pwd "
-    CHANGE_DIRECTORY="cd "
-    GO_TO_HOME=str("cd /home/"+ USER_NAME)
-    LIST_ALL="ls "
     MAKE_DIRECTORY="mkdir "
-    DELETE_DIRECTORY="rmdir "
-    DELETE_FILES="rm "
     SEARCH_FILES="find -name "
     MOVE_FILES="mv "
+    SLASH_CHAR="/"
 
     #Variáveis de linguagem
 
@@ -53,7 +48,7 @@ if osUsable == 'Linux':
     VIDEOS_PATH=str(HOME_PATH+'/'+VIDEOS_VAR)
     IMAGE_PATH=str(HOME_PATH+'/'+IMAGE_VAR)
 
-elif osUsable == 'Windows':
+elif OS_PLATFORM == 'Windows':
     
     windll = ctypes.windll.kernel32
     LANGUAGE_OS = locale.windows_locale[ windll.GetUserDefaultUILanguage() ]
@@ -73,25 +68,21 @@ elif osUsable == 'Windows':
             IMAGE_VAR = "Images"
 
     filesLocation = 'Desktop'
-    THIS_DIRECTORY="cd "
-    CHANGE_DIRECTORY="cd "
-    GO_TO_HOME="cd %homedrive%%homepath% "
-    LIST_ALL="dir "
     MAKE_DIRECTORY="mkdir "
-    DELETE_DIRECTORY="rmdir /s /q "
-    DELETE_FILES="del "
     SEARCH_FILES="dir /b/s "
-
+    SLASH_CHAR="\\"
+    MOVE_FILES="move "
+    #comando de mover arquivos no win
     #Paths padrões do sistema
 
-    HOME_PATH="%homedrive%%homepath% "
-    DESKTOP_PATH=str(HOME_PATH+'/'+DESKTOP_VAR)
-    DOCUMENTS_PATH=str(HOME_PATH+'/'+DOCUMENTS_VAR)
-    VIDEOS_PATH=str(HOME_PATH+'/'+VIDEOS_VAR)
-    IMAGE_PATH=str(HOME_PATH+'/'+IMAGE_VAR)
+    HOME_PATH=r"%homedrive%%homepath%"
+    DESKTOP_PATH=str(HOME_PATH+'\\'+DESKTOP_VAR)
+    DOCUMENTS_PATH=str(HOME_PATH+'\\'+DOCUMENTS_VAR)
+    VIDEOS_PATH=str(HOME_PATH+'\\'+VIDEOS_VAR)
+    IMAGE_PATH=str(HOME_PATH+'\\'+IMAGE_VAR)
 
     
-elif osUsable == 'Mac':
+elif OS_PLATFORM == 'Mac':
 
     LANGUAGE_OS = os.getenv('LANG')
     
@@ -106,3 +97,4 @@ else:
     print('Sistema não foi reconhecido, por favor,' +
         'digitar o caminho até o seu Desktop...')
     pathToDesktop = input('Usuario:')
+

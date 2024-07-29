@@ -2,6 +2,7 @@ import os
 import time
 import DBManager
 import asyncio
+from ConstantVariables import SLASH_CHAR
 
 os.system('clear')
 print("--- Inicializando 'Organizador de Arquivos' aguarde um momento ---\n")
@@ -62,7 +63,7 @@ async def LoadingAnimInterface(bodyText, Tittle):
         os.system('clear')
 
 #Interface de Erro do validador Json
-def JsonINVInterface():
+def JsonINVInterface(Error):
     time.sleep(0.5)
     os.system('clear')
 
@@ -74,23 +75,36 @@ def JsonINVInterface():
     time.sleep(4)
 
 #Interface de Erro do validador de arquivos
-def FileINVInterface(folder):
+def INVInterface(Error):
     time.sleep(0.5)
     os.system('clear')
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("  -- Erro de configuração --")
-    print(f" Não foi achado nenhum arquivo na pasta: {folder}")
-    print(""" Por favor, edite os campos com a função de edição
-           de Preloads e repita o processo""")    
+    print(f"{Error}")   
 
     time.sleep(4)
 
-#Função de validação do usuário
+#Interface de sucesso do programa
+def MoveFileSuccessInterface():
+    time.sleep(0.5)
+    os.system('clear')
+
+    print("---- ORGANIZADOR DE ARQUIVOS ----")
+    print(" -- Arquivos movidos com sucesso --")
+    print("\n Para acessar os arquivos, vá até as pastas finais definidas.")
+    print("Obrigado por escolher nosso Software\n\n")
+    print("\n © MemoryQI Softwares - 2024")
+
+    time.sleep(4)
+
+
+#Interface de validação do usuário
 def UserValidationInterface():
 
     time.sleep(0.5)
     os.system('clear')
+    count = 1
 
     jsonArchiveDict = DBManager.loadFileListData()
 
@@ -108,19 +122,21 @@ def UserValidationInterface():
         for y in jsonArchiveDict[x].keys():
             
             if y != "local" and y != "finalLocal" and y != "type":
-                print(f"   {y}: {jsonArchiveDict[x][y]}\n")
+                print(f"   {y[3:]}-{y[:4]}: {jsonArchiveDict[x][y]}\n")
 
             
 
     print("Exemplo de entrada: '2,5' -> Preload 2 e o arquivo 5")
     print("Não serão aceitas mais de uma entrada por vez\n")
 
+#Complemento da interface de validação
 def UserValidationInputInterface():
 
     print("1 -- Se deseja continuar o programa")
     print("2 -- Se deseja voltar ao menu principal")
     print("3 -- Se deseja deletar um arquivo")
 
+#Complemento de continuação da interface de validação
 def UserValidationContinueInterface():
 
     print("1 -- Se deseja continuar o programa")
@@ -294,6 +310,12 @@ def CPEditInterface():
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
+    print("Defina pastas base e final apartir da sua pasta home")
+    print("Caso, área de trabalho, Documentos, Vídeos ou Imagens, apenas digite esses nomes")
+    print("Caso, outras pastas, faça o caminho a partir da sua pasta home do seu computador")
+    print(f"""Exmplo '{SLASH_CHAR}PastaAlvo' localizado na pasta 'C:{SLASH_CHAR}
+          User{SLASH_CHAR}PastaAlvo'\n""")
+
     print("-- Preload " + str(len(jsonArchiveDict)) + " --")
     print("1 -- Pasta base: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["local"])
     print("2 -- Pasta final: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["finalLocal"])
@@ -308,6 +330,11 @@ def CPInputInterface():
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
+    print("Caso, área de trabalho, Documentos, Vídeos ou Imagens, apenas digite esses nomes")
+    print("Caso, outras pastas, faça o caminho a partir da sua pasta home do seu computador")
+    print(F"""Exmplo '{SLASH_CHAR}PastaAlvo' localizado na pasta 'C:{SLASH_CHAR}
+          User{SLASH_CHAR}PastaAlvo'\n""")
+
     print("-- Preload " + str(len(jsonArchiveDict)) + " --")
     print("1 -- Pasta base: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["local"])
     print("2 -- Pasta final: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["finalLocal"])
@@ -322,6 +349,11 @@ def CPRepeatInterface():
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
+    print("Caso, área de trabalho, Documentos, Vídeos ou Imagens, apenas digite esses nomes")
+    print("Caso, outras pastas, faça o caminho a partir da sua pasta home do seu computador")
+    print(F"""Exmplo '{SLASH_CHAR}PastaAlvo' localizado na pasta 'C:{SLASH_CHAR}
+          User{SLASH_CHAR}PastaAlvo'\n""")
+
     print("-- Preload " + str(len(jsonArchiveDict)) + " --")
     print("1 -- Pasta base: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["local"])
     print("2 -- Pasta final: "+ jsonArchiveDict["Preload"+ str(len(jsonArchiveDict))]["finalLocal"])
@@ -343,14 +375,14 @@ def DPInterface():
 
     for x in jsonArchiveDict.keys():
 
-        count+=1
-
         print("-- " + x + " --")
         print("-" + jsonArchiveDict[x]["local"] + "-")
         print("-" + jsonArchiveDict[x]["finalLocal"] + "-")
         print("-" + jsonArchiveDict[x]["type"] + "-\n")
-    
-    return(str("DPInterface"),int(count))
+
+        preloadRange = x[7:]
+        
+    return(str("DPInterface"), int(preloadRange))
 
 def DPRepeatInterface():
     time.sleep(0.5)
