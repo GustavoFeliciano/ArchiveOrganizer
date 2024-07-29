@@ -20,7 +20,7 @@ if OS_PLATFORM == 'Linux':
     LANGUAGE_OS = os.getenv('LANG')
 
     MAKE_DIRECTORY="mkdir "
-    SEARCH_FILES="find -name "
+    SEARCH_FILES="find "
     MOVE_FILES="mv "
     SLASH_CHAR="/"
 

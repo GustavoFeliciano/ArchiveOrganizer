@@ -291,15 +291,15 @@ async def FileValidator():
 
         fileType = JsonArchiveDict[x]["type"]
         if folderPath == DESKTOP_VAR:
-            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", DESKTOP_PATH)
+            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", DESKTOP_PATH)
         elif folderPath == DOCUMENTS_VAR:
-            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", DOCUMENTS_PATH)
+            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", DOCUMENTS_PATH)
         elif folderPath == VIDEOS_VAR:
-            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", VIDEOS_PATH)
+            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", VIDEOS_PATH)
         elif folderPath == IMAGE_VAR:
-            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", IMAGE_PATH)
+            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", IMAGE_PATH)
         else:
-            stringFileList = Shell(f"{SEARCH_FILES}'*{fileType}'", str(HOME_PATH+''+folderPath))
+            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", str(HOME_PATH+''+folderPath))
             
         if stringFileList == None or stringFileList == '':
             FrontEnd.JsonINVInterface(folderPath)
