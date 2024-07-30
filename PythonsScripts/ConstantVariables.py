@@ -54,6 +54,12 @@ elif OS_PLATFORM == 'Windows':
     windll = ctypes.windll.kernel32
     LANGUAGE_OS = locale.windows_locale[ windll.GetUserDefaultUILanguage() ]
 
+    shellCommand = subprocess.Popen(r"echo %homedrive%%homepath%", shell=True, stdout=subprocess.PIPE,
+                                    stderr=subprocess.PIPE, stdin=subprocess.PIPE)
+    
+    HOME_PATH = shellCommand.stdout.read().decode()
+    
+
     match LANGUAGE_OS:
         
         case "pt_BR":
@@ -75,8 +81,7 @@ elif OS_PLATFORM == 'Windows':
     MOVE_FILES="move "
     #comando de mover arquivos no win
     #Paths padrões do sistema
-
-    HOME_PATH=r"%homedrive%%homepath%"
+    
     DESKTOP_PATH=str(HOME_PATH+'\\'+DESKTOP_VAR)
     DOCUMENTS_PATH=str(HOME_PATH+'\\'+DOCUMENTS_VAR)
     VIDEOS_PATH=str(HOME_PATH+'\\'+VIDEOS_VAR)

@@ -299,7 +299,7 @@ async def FileValidator():
         elif folderPath == IMAGE_VAR:
             stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", IMAGE_PATH)
         else:
-            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", str(HOME_PATH+''+folderPath))
+            stringFileList = Shell(f"{SEARCH_FILES}*{fileType}", str(HOME_PATH+folderPath))
             
         if stringFileList == None or stringFileList == '':
             FrontEnd.JsonINVInterface(folderPath)
