@@ -9,7 +9,7 @@ from ConstantVariables import *
 
 #Função de fechamento do programa
 def ExitSoftware():
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
     print('Finalizando programa...')
     os.system('exit')
 
@@ -332,7 +332,9 @@ async def MoveFiles():
             try:
                 path = os.path.join((f"{HOME_PATH}{finalFolderPath}"))
                 os.mkdir(path)
-            except:
+            except Exception as e:
+                print(e)
+                time.sleep(10)
                 pass
         if localBasePath == DESKTOP_VAR or localBasePath == DOCUMENTS_VAR or localBasePath == VIDEOS_VAR or localBasePath == IMAGE_VAR:
             localBasePath = str(SLASH_CHAR+localBasePath)

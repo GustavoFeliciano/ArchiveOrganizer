@@ -2,15 +2,15 @@ import os
 import time
 import DBManager
 import asyncio
-from ConstantVariables import SLASH_CHAR
+from ConstantVariables import SLASH_CHAR, CLEAR_TERMINAL
 
-os.system('clear')
+os.system(CLEAR_TERMINAL)
 print("--- Inicializando 'Organizador de Arquivos' aguarde um momento ---\n")
 time.sleep(0) #Voltar time sleep para 3
 
 def MainInterface():
     time.sleep(0)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("     --- Menu Principal ---")
     print("1 -- Iniciar a organização --")
@@ -22,7 +22,7 @@ def MainInterface():
 #Interfaces de Opções
 def OptionsInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -44,7 +44,7 @@ def OptionsInterface():
 #Interface animada de loading
 async def LoadingAnimInterface(bodyText, Tittle):
     await asyncio.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
     charLoading = [
         f" {bodyText}",
         f" {bodyText}.",
@@ -60,12 +60,12 @@ async def LoadingAnimInterface(bodyText, Tittle):
         for x in charLoading:
             print(x,end="\r")
             await asyncio.sleep(0.2)
-        os.system('clear')
+        os.system(CLEAR_TERMINAL)
 
 #Interface de Erro do validador Json
 def JsonINVInterface(Error):
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("  -- Erro de configuração --")
@@ -77,7 +77,7 @@ def JsonINVInterface(Error):
 #Interface de Erro do validador de arquivos
 def INVInterface(Error):
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("  -- Erro de configuração --")
@@ -88,7 +88,7 @@ def INVInterface(Error):
 #Interface de sucesso do programa
 def MoveFileSuccessInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print(" -- Arquivos movidos com sucesso --")
@@ -103,7 +103,7 @@ def MoveFileSuccessInterface():
 def UserValidationInterface():
 
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
     count = 1
 
     jsonArchiveDict = DBManager.loadFileListData()
@@ -145,7 +145,7 @@ def UserValidationContinueInterface():
 #Função de interface de configurações atuais
 def SOInterface():    
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -167,7 +167,7 @@ def SOInterface():
 def CBFolderInterface():
     count = 0
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -184,7 +184,7 @@ def CBFolderInterface():
 
 def CBFolderInput(baseFolder):
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -193,7 +193,7 @@ def CBFolderInput(baseFolder):
 
 def CBFolderRepeat():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -208,7 +208,7 @@ def CBFolderRepeat():
 def CFFolderInterface():
     count = 0
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -225,7 +225,7 @@ def CFFolderInterface():
 
 def CFFolderInput(finalFolder):
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -234,7 +234,7 @@ def CFFolderInput(finalFolder):
 
 def CFFolderRepeat():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -249,7 +249,7 @@ def CFFolderRepeat():
 def CTypeInterface():
     count = 0
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -265,7 +265,7 @@ def CTypeInterface():
 
 def CTypeInput(Type):
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -275,7 +275,7 @@ def CTypeInput(Type):
 
 def CTypeRepeat():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -288,7 +288,7 @@ def CTypeRepeat():
 #Interface de criação de preloads
 def CreatePInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -304,7 +304,7 @@ def CreatePInterface():
 
 def CPEditInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -324,7 +324,7 @@ def CPEditInterface():
 
 def CPInputInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -343,7 +343,7 @@ def CPInputInterface():
 
 def CPRepeatInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     jsonArchiveDict = DBManager.loadTempData()
 
@@ -364,7 +364,7 @@ def CPRepeatInterface():
 
 def DPInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     count = 0
     jsonArchiveDict = DBManager.loadTempData()
@@ -386,7 +386,7 @@ def DPInterface():
 
 def DPRepeatInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -400,7 +400,7 @@ def DPRepeatInterface():
 
 def DTAInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -415,7 +415,7 @@ def DTAInterface():
 
 def SaveDBInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     print("---- ORGANIZADOR DE ARQUIVOS ----")
     print("         --- OPÇÕES ---")
@@ -429,7 +429,7 @@ def SaveDBInterface():
 #Interfaces de carregamento de preload de configuração do banco de dados
 def LPDBInterface():
     time.sleep(0.5)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
     count = 1
     jsonPreviewDict = DBManager.loadPreloadPreviewData()
@@ -456,12 +456,12 @@ def LPDBInterface():
 #Interfaces de erro e outras
 def ErrorInputInterface():
     time.sleep(1)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
     print("Comando inválido, por favor insira novamente")
     time.sleep(1)
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
 
 
 def ProcessInterface():
-    os.system('clear')
+    os.system(CLEAR_TERMINAL)
     return str('Process'),int(4)

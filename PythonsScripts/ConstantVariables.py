@@ -19,6 +19,7 @@ if OS_PLATFORM == 'Linux':
 
     LANGUAGE_OS = os.getenv('LANG')
 
+    CLEAR_TERMINAL="clear"
     MAKE_DIRECTORY="mkdir "
     SEARCH_FILES="find "
     MOVE_FILES="mv "
@@ -67,7 +68,7 @@ elif OS_PLATFORM == 'Windows':
             VIDEOS_VAR = "Videos"
             IMAGE_VAR = "Images"
 
-    filesLocation = 'Desktop'
+    CLEAR_TERMINAL="cls"
     MAKE_DIRECTORY="mkdir "
     SEARCH_FILES="dir /b/s "
     SLASH_CHAR="\\"

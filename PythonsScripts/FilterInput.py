@@ -8,7 +8,7 @@ def IntFilter(range, Msg):
             index = int(input(f"{Msg}"))
             if index > 0 and index < int(range+1): return index
             return 0
-        except:
+        except Exception as e:
             return 0
         
 def StrFilter(Msg):
@@ -17,7 +17,7 @@ def StrFilter(Msg):
         try:
             index = str(input(f"{Msg}"))
             return index
-        except:
+        except Exception as e:
             return False
 
 
@@ -56,7 +56,7 @@ def PreFileDelFilter(range, Msg):
             fileVarstr = str("File"+fileVar)
             print(fileVarstr)
             time.sleep(5)
-        except:
+        except Exception as e:
             print("Opa")
             time.sleep(5)
             return False
@@ -64,5 +64,5 @@ def PreFileDelFilter(range, Msg):
         if fileVarstr in jsonArchiveList[str("Preload"+preloadVar)]: return str(fileVar), str(preloadVar)
         return False
         
-    except:
+    except Exception as e:
         return False

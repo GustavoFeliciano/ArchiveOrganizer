@@ -52,7 +52,7 @@ def deletePreloadData(preloadIndex):
         tempArchive.pop("Preload" + str(preloadIndex))
 
         writeTempData(tempArchive)
-    except:
+    except Exception as e:
         return False
 
 def deleteTempData():
@@ -78,7 +78,7 @@ def writeTempData(tempArchive):
         with open("../Json/tempDB.json", "w") as writeJson:
             json.dump(tempArchive, writeJson)
             writeJson.close()
-    except:
+    except Exception as e:
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
 
@@ -98,7 +98,7 @@ def writeFileListData(tempArchive):
         with open("../Json/FileList.json", "w") as writeJson:
             json.dump(tempArchive, writeJson)
             writeJson.close()
-    except:
+    except Exception as e:
         os.system('clear')
         print("Não foi possível acessar o documento base do programa")
 
@@ -107,23 +107,3 @@ def DeleteFileData(fileVar, preloadVar):
     jsonArchiveDict = loadFileListData()
     jsonArchiveDict[str("Preload"+preloadVar)].pop(str("File"+fileVar))
     writeFileListData(jsonArchiveDict)
-    
-
-            
-
-
-
-tempArchive = {
-    "Preload1": {
-        "Local": "",
-        "finalLocal":"",
-        "Type":"",
-
-        "tempArchive01": {
-            "Name": "",
-        },
-        "tempArchive02": {
-            "Name": "",
-        }
-    }    
-}
