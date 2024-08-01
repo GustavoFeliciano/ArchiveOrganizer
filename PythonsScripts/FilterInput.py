@@ -48,17 +48,9 @@ def PreFileDelFilter(range, Msg):
 
         try:
             range = int(len(jsonArchiveList[str('Preload'+preloadVar)].keys()) - 3)
-            print(index[charCount:])
-            time.sleep(5)
             fileVar = index[charCount:]
-            print(fileVar)
-            time.sleep(5)
             fileVarstr = str("File"+fileVar)
-            print(fileVarstr)
-            time.sleep(5)
         except Exception as e:
-            print("Opa")
-            time.sleep(5)
             return False
 
         if fileVarstr in jsonArchiveList[str("Preload"+preloadVar)]: return str(fileVar), str(preloadVar)

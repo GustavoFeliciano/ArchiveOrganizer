@@ -122,7 +122,7 @@ def UserValidationInterface():
         for y in jsonArchiveDict[x].keys():
             
             if y != "local" and y != "finalLocal" and y != "type":
-                print(f"   {y[3:]}-{y[:4]}: {jsonArchiveDict[x][y]}\n")
+                print(f"   {y[4:]}-{y[:4]}: {jsonArchiveDict[x][y]}\n")
 
             
 
